@@ -6,18 +6,7 @@ using System.Threading.Tasks;
 
 namespace first_asp_project
 {
-    public class Student
-    {
-        public string name;
-        public List<int> grades = new List<int>();
-        public double avggrage()
-        {
-            double avr;
-            if (grades == null )
-                return 0;
-            return grades.Average();
-        }
-       
+    
 
 }
     internal class Program
@@ -25,38 +14,36 @@ namespace first_asp_project
         static void Main(string[] args)
 
         {
-            List<Student> x = new List<Student>();
-            Student[] students = new Student[3];
-            for (int i = 0; i < 3; ++i)
+
+        Console.WriteLine("Enter number of values you want to input:");
+        int count = Convert.ToInt32(Console.ReadLine());
+        for(int i=0;i< count; ++i)
+        {
+
+            Console.WriteLine("enter a value\n");
+            string input = Console.ReadLine();
+            Object value;
+            if (int.TryParse(input, out int intValue))
             {
-                students[i] = new Student();
-                Console.WriteLine("enter your name\n");
-                students[i].name = Console.ReadLine();
-                Console.WriteLine("Enter number of grades:");
-                int numGrades = Convert.ToInt32(Console.ReadLine());
-
-                for (int j = 0; j < numGrades; j++)
-                {
-                    Console.WriteLine("Enter grade");
-                    int grade = Convert.ToInt32(Console.ReadLine());
-                    students[i].grades.Add(grade);
-                }
-                double avg = students[i].avggrage();
-
-                if (avg > 70)
-                {
-                    x.Add(students[i]);
-                   
-                }
+                value = intValue;
             }
-            foreach (Student s in x)
+            else if (double.TryParse(input, out double doubleValue))
             {
-                Console.WriteLine($"Name: {s.name}, Grade: {s.grades}");
-                Console.WriteLine("\n");
+                value = doubleValue;
             }
+            else if (bool.TryParse(input, out bool boolValue))
+            {
+                value = boolValue;
+            }
+            else
+            {
+                value = input; 
+            }
+            
+            Console.WriteLine($"Value: {value}, Type: {value.GetType()}");
+        }
 
-        
     }
      
 }
-}
+
